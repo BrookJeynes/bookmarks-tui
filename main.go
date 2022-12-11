@@ -142,6 +142,17 @@ func main() {
 		} else {
 			ui.Render(bookmark_list)
 		}
+
+		switch termbox.PollEvent().Type {
+		case termbox.EventResize:
+			ui.Clear()
+
+			width, height = termbox.Size()
+			bookmark_list.SetRect(0, 0, width, height)
+			help_menu.SetRect(width/4, height/4, 3*width/4, 3*height/4)
+
+			termbox.Sync()
+		}
 	}
 }
 
